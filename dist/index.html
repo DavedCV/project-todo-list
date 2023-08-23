@@ -41,11 +41,12 @@
       <p class="tab">gym</p>
       <p class="tab">university</p>
       <p class="tab">work</p>
+      <p class="tab">notes</p>
     </nav>
 
     <main class="main">
     
-      <div class="task-card done">
+      <div class="task-card">
         <input type="checkbox">
         
         <div class="task-content">
@@ -70,6 +71,43 @@
     <div class="buttons">
       <button>create task</button>
       <button>create project</button>
+    </div>
+
+    <div class="create-task active">
+      <h3>Create a new task</h3>
+
+      <form action="">
+        <label for="task-name"></label>
+        <input type="text" name="task-name" id="task-name" required>
+
+        <fieldset>
+          <legend>Priority</legend>
+          <ul>
+            <li>
+              <label for="high">High</label>
+              <input type="radio" name="priority" id="high" value="high" checked>
+            </li>
+            
+            <li>
+              <label for="medium">Medium</label>
+              <input type="radio" name="priority" id="medium" value="medium">
+            </li>
+
+            <li>
+              <label for="low">Low</label>
+              <input type="radio" name="priority" id="low" value="low">
+            </li>
+          </ul>
+        </fieldset>
+
+        <label for="date">Date</label>
+        <input type="datetime-local" name="date" id="date" required>
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
+
+        <button>Create task</button>
+      </form>
     </div>
 
   </div>
