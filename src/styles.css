@@ -7,6 +7,11 @@
   --blue2: #0511F2;
   --white-bg: #f5f7fa;
 
+  /* details schema */
+  --grey-f: #c4c5d4;
+  --red: #ff0071;
+  --green: #00ff00;
+
   /* font family */
   --ff: 'Nunito', sans-serif;
 }
@@ -35,8 +40,17 @@ body {
 }
 
 h1,
+h3,
 p {
   margin: 0;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-family: var(--ff);
+  font-size: 1rem;
 }
 
 /* container style */
@@ -48,37 +62,176 @@ body {
 }
 
 .container {
-
+  
   overflow: hidden;
   background-color: var(--white-bg);
   box-shadow: 0 0 10px var(--white-bg);
   padding: 40px;
-
+  
   border-radius: 2rem;
   height: 80%;
   width: 80%;
-
+  
   display: grid;
   grid-template-rows: max-content max-content auto;
-
+  
 }
 
 
-/* styel header */
+/* style header --------------------------------------------------------------*/
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 
   text-transform: capitalize;
+  margin-bottom: 2rem;
 }
 
 .header .header-logo {
   display: flex;
+  justify-content: flex-end;
   gap: 10px;
   align-items: center;
+
+}
+
+.header .header-logo h1 {
+  width: fit-content;
 }
 
 .header .header-logo i {
   font-size: 2rem;
+  color: var(--blue);
+}
+
+/* style navbar --------------------------------------------------------------*/
+
+.navbar-projects {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+
+.navbar-projects .tab {
+  text-transform: capitalize;
+  color: var(--grey-f);
+}
+
+.navbar-projects .tab.active {
+  color: var(--black);
+}
+
+
+/* style main ----------------------------------------------------------------*/
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+
+  overflow: auto;
+  padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.main .task-card {
+  flex: 1 0 50px;
+  width: 100%;
+
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0 4px var(--grey-f);
+}
+
+.main .task-card.done {
+  box-shadow: 0 0 4px var(--green);
+}
+
+.main .task-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1.5rem;
+}
+
+.task-card input {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+
+  border: 1px solid var(--grey-f);
+  border-radius: 5px;
+}
+
+.task-card input:checked {
+  background-color: var(--green);
+  border-color: var(--green);
+
+  box-shadow: 0 0 2px var(--green);
+}
+
+.task-card .task-info {
+  margin-right: auto;
+  margin-left: 15px;
+
+  position: relative;
+
+  text-transform: capitalize;
+}
+
+.task-card.done .task-info {
+  text-decoration: line-through;
+}
+
+.task-card .task-info::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -20px;
+  
+  width: 2px;
+
+  background-color: var(--blue);
+
+  border-radius: 1rem;
+  box-shadow: 0 0 4px var(--blue);
+}
+  
+.task-card i {
+  color: var(--grey-f);
+}
+
+/* style buttons -------------------------------------------------------------*/
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.buttons button {
+  background-color: var(--blue);
+  color: white;
+  box-shadow: 0 0 5px var(--blue);
+  
+  font-weight: bold;
+  text-transform: capitalize;
+  
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.buttons button:is(:hover, :focus) {
+  background-color: var(--blue2);
 }
