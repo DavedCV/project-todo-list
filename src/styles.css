@@ -62,29 +62,28 @@ body {
 }
 
 .container {
-  
+
   overflow: hidden;
   background-color: var(--white-bg);
   box-shadow: 0 0 10px var(--white-bg);
   padding: 40px;
-  
+
   border-radius: 2rem;
   height: 80%;
   width: 80%;
-  
+
   display: grid;
   grid-template-rows: max-content max-content auto;
-  
+
 }
 
 
 /* style header --------------------------------------------------------------*/
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
 
   text-transform: capitalize;
   margin-bottom: 2rem;
@@ -92,10 +91,10 @@ body {
 
 .header .header-logo {
   display: flex;
-  justify-content: flex-end;
   gap: 10px;
   align-items: center;
 
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 .header .header-logo h1 {
@@ -105,6 +104,10 @@ body {
 .header .header-logo i {
   font-size: 2rem;
   color: var(--blue);
+}
+
+.header .header-text {
+  text-align: center;
 }
 
 /* style navbar --------------------------------------------------------------*/
@@ -148,13 +151,7 @@ body {
   background-color: white;
   border-radius: 1rem;
   box-shadow: 0 0 4px var(--grey-f);
-}
 
-.main .task-card.done {
-  box-shadow: 0 0 4px var(--green);
-}
-
-.main .task-card {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -162,7 +159,17 @@ body {
   padding: 1.5rem;
 }
 
+.main .task-card.done {
+  box-shadow: 0 0 4px var(--green);
+}
+
+.main .task-card:is(:hover, :focus):not(.done) {
+  box-shadow: 0 0 4px var(--blue);
+}
+
 .task-card input {
+  flex: 0 0 1rem;
+
   appearance: none;
   width: 1rem;
   height: 1rem;
@@ -178,12 +185,37 @@ body {
   box-shadow: 0 0 2px var(--green);
 }
 
-.task-card .task-info {
-  margin-right: auto;
-  margin-left: 15px;
+.task-card .task-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  row-gap: 1rem;
+
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
 
   position: relative;
+}
 
+.task-card .task-content::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.5rem;
+
+  width: 2px;
+
+  background-color: var(--blue);
+  box-shadow: 0 0 2px var(--blue);
+}
+
+.task-card .task-info {
+  grid-column: 1 / 3;
+  
+  text-align: center;
   text-transform: capitalize;
 }
 
@@ -191,22 +223,6 @@ body {
   text-decoration: line-through;
 }
 
-.task-card .task-info::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -20px;
-  
-  width: 2px;
-
-  background-color: var(--blue);
-
-  border-radius: 1rem;
-  box-shadow: 0 0 4px var(--blue);
-}
-  
 .task-card i {
   color: var(--grey-f);
 }
@@ -224,10 +240,10 @@ body {
   background-color: var(--blue);
   color: white;
   box-shadow: 0 0 5px var(--blue);
-  
+
   font-weight: bold;
   text-transform: capitalize;
-  
+
   padding: 1rem;
   border-radius: 1rem;
 }
