@@ -495,7 +495,7 @@ body {
     .header {
       grid-area: header;
 
-      background-color: var(--blue);
+      background-color: var(--dark-blue2);
       color: white;
       margin-bottom: 0;
       border-bottom: 2px solid white;
@@ -533,7 +533,7 @@ body {
       padding: 1rem;
       border-bottom: 2px solid white;
 
-      background-color: var(--blue);
+      background-color: var(--dark-blue2);
   
       flex-direction: column;
       justify-content: flex-start;
@@ -555,7 +555,7 @@ body {
       background-color: white;
       padding: 0.5rem;
       border-radius: 1rem;
-      color: var(--blue);
+      color: var(--dark-blue2);
     }
     
 
@@ -604,7 +604,7 @@ body {
     .buttons {
       grid-area: buttons;
 
-      background-color: var(--blue);
+      background-color: var(--dark-blue2);
       border-bottom-left-radius: 1rem;
 
       padding: 1rem;
@@ -617,7 +617,7 @@ body {
     
     .buttons button {
       background-color: white;
-      color: var(--blue);
+      color: var(--dark-blue2);
       
       width: 100%;
     }
@@ -626,5 +626,25 @@ body {
       background-color: white;
       box-shadow: 0 0 5px white;
       color: var(--blue2);
+    }
+
+    /* create task and project, edit task ------------------------------------*/
+
+    .create-task.active,
+    .create-project.active,
+    .edit-task.active,
+    .task-details-info.active {
+      grid-area: main;
+      
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      height: 100%;
+      width: 98%;
+
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
 }
