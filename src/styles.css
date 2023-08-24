@@ -283,15 +283,17 @@ body {
   background-color: var(--blue2);
 }
 
-/* create task and project ---------------------------------------------------*/
+/* create task and project, edit task ----------------------------------------*/
 
 .create-task,
-.create-project {
+.create-project,
+.edit-task {
   display: none;
 }
 
 .create-task.active,
-.create-project.active {
+.create-project.active,
+.edit-task.active {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -317,7 +319,8 @@ body {
 }
 
 .create-task > form,
-.create-project > form {
+.create-project > form,
+.edit-task > form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -327,52 +330,62 @@ body {
 .create-task .form-entry input,
 .create-task .form-entry textarea,
 .create-project .form-entry input,
-.create-project .form-entry textarea {
+.create-project .form-entry textarea,
+.edit-task .form-entry input,
+.edit-task .form-entry textarea {
   width: 100%;
   border-bottom: 2px solid white;
   color: white;
 }
 
-.create-task .form-entry input[type=datetime-local]::-webkit-calendar-picker-indicator {
+.create-task .form-entry input[type=datetime-local]::-webkit-calendar-picker-indicator,
+.edit-task .form-entry input[type=datetime-local]::-webkit-calendar-picker-indicator {
   filter: invert(100%);
 }
 
 .create-task .form-entry input,
-.create-project .form-entry input {
+.create-project .form-entry input,
+.edit-task .form-entry input {
   height: 1.8rem;
 }
 
 .create-task .form-entry textarea,
-.create-project .form-entry textarea {
+.create-project .form-entry textarea,
+.edit-task .form-entry textarea {
   height: 4rem;
 }
 
 .create-task form > button,
-.create-project form > button {
+.create-project form > button,
+.edit-task form > button {
   align-self: center;
 
   background-color: white;
   color: var(--blue);
 }
 
-.create-task fieldset input {
+.create-task fieldset input,
+.edit-task fieldset input {
   appearance: none;
 }
 
-.create-task fieldset ul {
+.create-task fieldset ul,
+.edit-task fieldset ul {
   display: flex;
   gap: 0.5rem;
   margin-block: 1rem;
   justify-content: space-between;
 }
 
-.create-task fieldset label {
+.create-task fieldset label,
+.edit-task fieldset label {
   padding: 0.2rem 0.5rem;
   border-radius: 0.5rem;
   border: 2px solid white;
 }
 
-.create-task fieldset input:checked + label {
+.create-task fieldset input:checked + label,
+.edit-task fieldset input:checked + label {
   background-color: white;
   color: var(--blue);
   box-shadow: 0 0 10px white;
