@@ -191,6 +191,7 @@ body {
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 2rem;
 
   padding: 1.5rem;
@@ -205,6 +206,8 @@ body {
 }
 
 .task-card input {
+  margin-inline: auto;
+
   flex: 0 0 1rem;
 
   appearance: none;
@@ -223,6 +226,8 @@ body {
 }
 
 .task-card .task-content {
+  flex: 1;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr auto;
@@ -325,6 +330,30 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   justify-content: space-evenly;
+}
+
+.create-task .form-entry:first-child,
+.edit-task .form-entry:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-task .form-entry:first-child select,
+.edit-task .form-entry:first-child select{
+  background-color: var(--blue);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border: 2px solid white;
+  outline: none;
+}
+
+.create-task .form-entry:first-child option,
+.edit-task .form-entry:first-child option{
+  color: var(--blue);
+  background-color: white;
+  outline: none;
+  border: none;
 }
 
 .create-task .form-entry input,

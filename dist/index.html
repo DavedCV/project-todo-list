@@ -46,27 +46,28 @@
     </nav>
 
     <main class="main">
-    
+
       <div class="task-card">
-        <input type="checkbox">
-        
+        <div class="task-check">
+          <input type="checkbox">
+        </div>
+
         <div class="task-content">
           <div class="task-info">
             <h3 class="task-title">Task 1 - Lorem ipsum dolor sit.</h3>
             <p class="task-due-date">23.08.2023</p>
             <p class="task-priority">high priority</p>
           </div>
-          
+
           <i class="fa-solid fa-pen-to-square"></i>
           <i class="fa-solid fa-xmark"></i>
         </div>
-
       </div>
 
       <div class="task-card"></div>
       <div class="task-card"></div>
       <div class="task-card"></div>
-    
+
     </main>
 
     <div class="buttons">
@@ -78,6 +79,18 @@
       <h3>Create a new task</h3>
 
       <form action="">
+
+        <div class="form-entry">
+          <label for="project">Project</label>
+          <select name="project" id="project">
+            <option>today</option>
+            <option>gym</option>
+            <option>university</option>
+            <option>work</option>
+            <option>notes</option>
+          </select>
+        </div>
+
         <div class="form-entry">
           <label for="task-name">Task Name</label>
           <input type="text" name="task-name" id="task-name" required>
@@ -90,7 +103,7 @@
               <input type="radio" name="priority" id="high" value="high" checked>
               <label for="high">High</label>
             </li>
-            
+
             <li>
               <input type="radio" name="priority" id="medium" value="medium">
               <label for="medium">Medium</label>
@@ -143,12 +156,17 @@
         <h3>date</h3>
         <p>24.08.2023</p>
       </div>
-      
+
+      <div class="details-date">
+        <h3>project</h3>
+        <p>university</p>
+      </div>
+
       <div class="details-priority">
         <h3>priority</h3>
         <p>Priority</p>
       </div>
-      
+
       <div class="details-description">
         <h3>description</h3>
         <p>
@@ -167,6 +185,18 @@
       <h3>Edit a new task</h3>
 
       <form action="">
+
+        <div class="form-entry">
+          <label for="project-2">Project</label>
+          <select name="project" id="project-2">
+            <option>today</option>
+            <option>gym</option>
+            <option>university</option>
+            <option>work</option>
+            <option>notes</option>
+          </select>
+        </div>
+
         <div class="form-entry">
           <label for="task-name">Task Name</label>
           <input type="text" name="task-name" id="task-name" required>
@@ -179,7 +209,7 @@
               <input type="radio" name="priority" id="high-2" value="high">
               <label for="high-2">High</label>
             </li>
-            
+
             <li>
               <input type="radio" name="priority" id="medium-2" value="medium">
               <label for="medium-2">Medium</label>
@@ -202,7 +232,7 @@
           <textarea name="description" id="description"></textarea>
         </div>
 
-        <button>Edit task</button>
+        <button>Save</button>
       </form>
     </div>
 
