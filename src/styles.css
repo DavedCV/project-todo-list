@@ -47,6 +47,8 @@ p {
 
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -55,6 +57,24 @@ button {
   background-color: transparent;
   font-family: var(--ff);
   font-size: 1rem;
+
+  width: max-content;
+
+  font-weight: bold;
+  text-transform: capitalize;
+
+  padding: 0.5rem 0.5rem;
+  border-radius: 1rem;
+}
+
+input, 
+textarea,
+fieldset {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* container style */
@@ -247,14 +267,6 @@ body {
   background-color: var(--blue);
   color: white;
   box-shadow: 0 0 5px var(--blue);
-
-  width: max-content;
-
-  font-weight: bold;
-  text-transform: capitalize;
-
-  padding: 0.5rem 0.5rem;
-  border-radius: 1rem;
 }
 
 .buttons button:is(:hover, :focus) {
@@ -269,6 +281,9 @@ body {
 
 .create-task.active {
   visibility: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   
   position: absolute;
   right: 0;
@@ -277,8 +292,67 @@ body {
   
   height: 80%;
 
-  padding: 1rem;
+  padding: 2rem;
 
   border-radius: 2rem;
   background-color: var(--blue);
+  color: white;
+
+  text-transform: capitalize  ;
+}
+
+.create-task > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: space-evenly;
+}
+
+.create-task .form-entry input,
+.create-task .form-entry textarea {
+  width: 100%;
+  border-bottom: 2px solid white;
+  color: white;
+}
+
+.create-task .form-entry input[type=datetime-local]::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+}
+
+.create-task .form-entry input {
+  height: 1.8rem;
+}
+
+.create-task .form-entry textarea {
+  height: 4rem;
+}
+
+.create-task form > button {
+  align-self: center;
+
+  background-color: white;
+  color: var(--blue);
+}
+
+.create-task fieldset input {
+  appearance: none;
+}
+
+.create-task fieldset ul {
+  display: flex;
+  gap: 0.5rem;
+  margin-block: 1rem;
+  justify-content: space-between;
+}
+
+.create-task fieldset label {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid white;
+}
+
+.create-task fieldset input:checked + label {
+  background-color: white;
+  color: var(--blue);
+  box-shadow: 0 0 10px white;
 }
