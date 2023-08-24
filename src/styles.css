@@ -420,6 +420,14 @@ body {
   box-shadow: 0 0 10px white;
 }
 
+.create-task i,
+.create-project i,
+.edit-task i {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+}
+
 /* task details info ---------------------------------------------------------*/
 
 .task-details-info {
@@ -495,7 +503,7 @@ body {
     .header {
       grid-area: header;
 
-      background-color: var(--dark-blue2);
+      background-color: var(--blue);
       color: white;
       margin-bottom: 0;
       border-bottom: 2px solid white;
@@ -533,7 +541,7 @@ body {
       padding: 1rem;
       border-bottom: 2px solid white;
 
-      background-color: var(--dark-blue2);
+      background-color: var(--blue);
   
       flex-direction: column;
       justify-content: flex-start;
@@ -604,7 +612,7 @@ body {
     .buttons {
       grid-area: buttons;
 
-      background-color: var(--dark-blue2);
+      background-color: var(--blue);
       border-bottom-left-radius: 1rem;
 
       padding: 1rem;
