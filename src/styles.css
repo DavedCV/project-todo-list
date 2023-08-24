@@ -567,8 +567,8 @@ body {
 
     .main {
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(23%, 1fr));
-      grid-auto-rows: 250px;
+      grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+      grid-auto-rows: 45%;
       
       gap: 2.4%;
 
