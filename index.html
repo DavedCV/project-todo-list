@@ -36,6 +36,7 @@
 
     <nav class="navbar-projects">
       <p class="tab active">today</p>
+      <p class="tab">all</p>
       <p class="tab">completed</p>
       <p class="tab">uncompleted</p>
       <p class="tab">gym</p>
@@ -116,7 +117,7 @@
       </form>
     </div>
 
-    <div class="create-project active">
+    <div class="create-project">
       <h3>Create a new project</h3>
 
       <form action="">
@@ -129,9 +130,37 @@
           <label for="description">Description</label>
           <textarea name="description" id="description"></textarea>
         </div>
-        
+
         <button>Create project</button>
       </form>
+    </div>
+
+    <div class="task-details-info">
+      <i class="fa-solid fa-xmark"></i>
+      <h2>Task name</h2>
+
+      <div class="details-date">
+        <h3>date</h3>
+        <p>24.08.2023</p>
+      </div>
+      
+      <div class="details-priority">
+        <h3>priority</h3>
+        <p>Priority</p>
+      </div>
+      
+      <div class="details-description">
+        <h3>description</h3>
+        <p>
+          Details Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Voluptates cumque maxime necessitatibus architecto. Cupiditate velit
+          numquam, possimus perferendis dignissimos recusandae.
+        </p>
+      </div>
+
+      <div class="details-mark-complete">
+        <button>Complete</button>
+      </div>
     </div>
 
   </div>
