@@ -16,7 +16,7 @@
   --ff: 'Nunito', sans-serif;
 }
 
-/* reset */
+/* reset ---------------------------------------------------------------------*/
 
 html {
   box-sizing: border-box;
@@ -40,6 +40,7 @@ body {
 }
 
 h1,
+h2,
 h3,
 p {
   margin: 0;
@@ -86,7 +87,7 @@ fieldset {
   height: 50%;
 }
 
-/* container style */
+/* container style -----------------------------------------------------------*/
 
 body {
   display: flex;
@@ -375,4 +376,61 @@ body {
   background-color: white;
   color: var(--blue);
   box-shadow: 0 0 10px white;
+}
+
+/* task details info ---------------------------------------------------------*/
+
+.task-details-info {
+  display: none;
+}
+
+.task-details-info.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 80%;
+  height: 90%;
+
+  z-index: 10;
+
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: var(--blue);
+  color: white;
+
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.task-details-info i {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+}
+
+.task-details-info .details-description p {
+  text-align: justify;
+}
+
+.task-details-info div:not(:last-child) {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid white;
+}
+
+.task-details-info .details-mark-complete button {
+  color: var(--blue);
+  background-color: white;
+}
+
+.task-details-info .details-mark-complete button:is(:hover, :focus) {
+  color: var(--blue2);
+  box-shadow: 0 0 5px white;
 }
