@@ -77,6 +77,15 @@ fieldset {
   padding: 0;
 }
 
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  height: 50%;
+}
+
 /* container style */
 
 body {
@@ -181,7 +190,7 @@ body {
 
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 
   padding: 1.5rem;
 }
@@ -231,9 +240,9 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -0.5rem;
+  left: -1rem;
 
-  width: 2px;
+  width: 1px;
 
   background-color: var(--blue);
   box-shadow: 0 0 2px var(--blue);
@@ -273,14 +282,15 @@ body {
   background-color: var(--blue2);
 }
 
-/* create task ---------------------------------------------------------------*/
+/* create task and project ---------------------------------------------------*/
 
-.create-task {
-  visibility: none;
+.create-task,
+.create-project {
+  display: none;
 }
 
-.create-task.active {
-  visibility: visible;
+.create-task.active,
+.create-project.active {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -298,10 +308,15 @@ body {
   background-color: var(--blue);
   color: white;
 
-  text-transform: capitalize  ;
+  text-transform: capitalize;
 }
 
-.create-task > form {
+.create-project.active {
+  height: 70%;
+}
+
+.create-task > form,
+.create-project > form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -309,7 +324,9 @@ body {
 }
 
 .create-task .form-entry input,
-.create-task .form-entry textarea {
+.create-task .form-entry textarea,
+.create-project .form-entry input,
+.create-project .form-entry textarea {
   width: 100%;
   border-bottom: 2px solid white;
   color: white;
@@ -319,15 +336,18 @@ body {
   filter: invert(100%);
 }
 
-.create-task .form-entry input {
+.create-task .form-entry input,
+.create-project .form-entry input {
   height: 1.8rem;
 }
 
-.create-task .form-entry textarea {
+.create-task .form-entry textarea,
+.create-project .form-entry textarea {
   height: 4rem;
 }
 
-.create-task form > button {
+.create-task form > button,
+.create-project form > button {
   align-self: center;
 
   background-color: white;
