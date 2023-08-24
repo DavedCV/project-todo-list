@@ -163,6 +163,49 @@
       </div>
     </div>
 
+    <div class="edit-task">
+      <h3>Edit a new task</h3>
+
+      <form action="">
+        <div class="form-entry">
+          <label for="task-name">Task Name</label>
+          <input type="text" name="task-name" id="task-name" required>
+        </div>
+
+        <fieldset>
+          <legend>Priority</legend>
+          <ul>
+            <li>
+              <input type="radio" name="priority" id="high-2" value="high">
+              <label for="high-2">High</label>
+            </li>
+            
+            <li>
+              <input type="radio" name="priority" id="medium-2" value="medium">
+              <label for="medium-2">Medium</label>
+            </li>
+
+            <li>
+              <input type="radio" name="priority" id="low-2" value="low">
+              <label for="low-2">Low</label>
+            </li>
+          </ul>
+        </fieldset>
+
+        <div class="form-entry">
+          <label for="date">Date</label>
+          <input type="datetime-local" name="date" id="date" required>
+        </div>
+
+        <div class="form-entry">
+          <label for="description">Description</label>
+          <textarea name="description" id="description"></textarea>
+        </div>
+
+        <button>Edit task</button>
+      </form>
+    </div>
+
   </div>
 </body>
 
