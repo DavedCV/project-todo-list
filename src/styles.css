@@ -482,7 +482,7 @@ body {
 @media (min-width: 1000px) {
     .container {
       grid-template-rows: 1fr 2fr 2fr 1fr;
-      grid-template-columns: min-content auto;
+      grid-template-columns: 20% auto;
       grid-template-areas:
         "header main main" 
         "nav main main"
@@ -567,9 +567,11 @@ body {
 
     .main {
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(23%, 1fr));
       grid-auto-rows: 250px;
       
+      gap: 2.4%;
+
       flex-direction: none;
       justify-content: none;
 
