@@ -147,6 +147,11 @@ body {
   text-align: center;
 }
 
+.header .header-text .signs-wrapper {
+  font-size: 0.8rem;
+  color: var(--grey-f);
+}
+
 /* style navbar --------------------------------------------------------------*/
 
 .navbar-projects {
@@ -158,13 +163,17 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.navbar-projects .tab {
+.navbar-projects .project-nav-wrapper {
   text-transform: capitalize;
   color: var(--grey-f);
 }
 
-.navbar-projects .tab.active {
+.navbar-projects .project-nav-wrapper.active {
   color: var(--black);
+}
+
+.navbar-projects .project-nav-wrapper .signs-wrapper {
+  display: none;
 }
 
 
@@ -292,13 +301,15 @@ body {
 
 .create-task,
 .create-project,
-.edit-task {
+.edit-task,
+.edit-project {
   display: none;
 }
 
 .create-task.active,
 .create-project.active,
-.edit-task.active {
+.edit-task.active,
+.edit-project.active {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -319,13 +330,15 @@ body {
   text-transform: capitalize;
 }
 
-.create-project.active {
+.create-project.active,
+.edit-project.active {
   height: 70%;
 }
 
 .create-task > form,
 .create-project > form,
-.edit-task > form {
+.edit-task > form,
+.edit-project > form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -340,7 +353,7 @@ body {
 }
 
 .create-task .form-entry:first-child select,
-.edit-task .form-entry:first-child select{
+.edit-task .form-entry:first-child select {
   background-color: var(--blue);
   color: white;
   padding: 0.2rem 0.5rem;
@@ -349,7 +362,7 @@ body {
 }
 
 .create-task .form-entry:first-child option,
-.edit-task .form-entry:first-child option{
+.edit-task .form-entry:first-child option {
   color: var(--blue);
   background-color: white;
   outline: none;
@@ -361,7 +374,9 @@ body {
 .create-project .form-entry input,
 .create-project .form-entry textarea,
 .edit-task .form-entry input,
-.edit-task .form-entry textarea {
+.edit-task .form-entry textarea,
+.edit-project .form-entry input,
+.edit-project .form-entry textarea {
   width: 100%;
   border-bottom: 2px solid white;
   color: white;
@@ -374,19 +389,22 @@ body {
 
 .create-task .form-entry input,
 .create-project .form-entry input,
-.edit-task .form-entry input {
+.edit-task .form-entry input,
+.edit-project .form-entry input {
   height: 1.8rem;
 }
 
 .create-task .form-entry textarea,
 .create-project .form-entry textarea,
-.edit-task .form-entry textarea {
+.edit-task .form-entry textarea,
+.edit-project .form-entry textarea {
   height: 4rem;
 }
 
 .create-task form > button,
 .create-project form > button,
-.edit-task form > button {
+.edit-task form > button,
+.edit-project form > button {
   align-self: center;
 
   background-color: white;
@@ -422,7 +440,8 @@ body {
 
 .create-task i,
 .create-project i,
-.edit-task i {
+.edit-task i,
+.edit-project i {
   position: absolute;
   top: 0.8rem;
   right: 1rem;
@@ -532,6 +551,10 @@ body {
       text-align: center;
     }
 
+    .header .header-text .project-section-wrapper {
+      display: none;
+    }
+
     /* navbar ----------------------------------------------------------------*/
 
     .navbar-projects {
@@ -551,21 +574,34 @@ body {
       overflow: auto;
     }
 
-    .navbar-projects .tab {
+    .navbar-projects .project-nav-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-projects .project-nav-wrapper {
       color: white;
     }
 
-    .navbar-projects .tab:is(:hover, :focus) {
+    .navbar-projects .project-nav-wrapper:is(:hover, :focus) {
       color: var(--black);
     }
     
-    .navbar-projects .tab.active {
+    .navbar-projects .project-nav-wrapper.active {
       background-color: white;
       padding: 0.5rem;
       border-radius: 1rem;
+      color: var(--blue);
+    }
+
+    .navbar-projects .project-nav-wrapper.active .signs-wrapper {
+      display: inline;
+      margin-left: auto;
+    }
+
+    .navbar-projects .project-nav-wrapper.active .signs-wrapper i:is(:hover, :focus) {
       color: var(--dark-blue2);
     }
-    
 
     /* main ------------------------------------------------------------------*/
 
@@ -625,7 +661,7 @@ body {
     
     .buttons button {
       background-color: white;
-      color: var(--dark-blue2);
+      color: var(--blue);
       
       width: 100%;
     }
@@ -633,7 +669,7 @@ body {
     .buttons button:is(:hover, :focus) {
       background-color: white;
       box-shadow: 0 0 5px white;
-      color: var(--blue2);
+      color: var(--dark-blue2);
     }
 
     /* create task and project, edit task ------------------------------------*/
@@ -641,7 +677,8 @@ body {
     .create-task.active,
     .create-project.active,
     .edit-task.active,
-    .task-details-info.active {
+    .task-details-info.active,
+    .edit-project.active {
       grid-area: main;
       
       top: 50%;
