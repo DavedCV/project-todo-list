@@ -4,7 +4,7 @@ export default function Task(name, priority, date, description) {
   const getName = () => name;
   const setName = (newName) => (name = newName);
 
-  const getPriority = () => name;
+  const getPriority = () => priority;
   const setPriority = (newPriority) => (priority = newPriority);
 
   const getDate = () => date;

@@ -1,7 +1,7 @@
 import Project from "./Project.js";
 import Task from "./Task.js";
 
-const projects = [];
+let projects = [];
 
 const init = () => {
   const today = Project(
@@ -29,7 +29,7 @@ const init = () => {
   );
   all.addTask(defaultTask);
 
-  projects.concat([today, all, completed, uncompleted]);
+  projects = [today, all, completed, uncompleted];
 };
 
 /* projects api --------------------------------------------------------------*/
@@ -55,7 +55,7 @@ const getProjectsNames = () => projects.map((project) => project.getName());
 const getProjectTasks = (projectName) =>
   projects
     .filter((project) => project.getName() === projectName)[0]
-    .getTaskCopy();
+    .getTasksCopy();
 
 const getProjectDescription = (projectName) =>
   projects
