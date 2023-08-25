@@ -25,7 +25,13 @@
 
       <div class="header-text">
         <p>23.08.2023</p>
-        <p>projects section</p>
+        <div class="project-section-wrapper">
+          <p>projects section</p>
+          <div class="signs-wrapper">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>
       </div>
       <div class="header-logo">
         <h1 class="header-title">todo list</h1>
@@ -35,14 +41,69 @@
     </header>
 
     <nav class="navbar-projects">
-      <p class="tab active">today</p>
-      <p class="tab">all</p>
-      <p class="tab">completed</p>
-      <p class="tab">uncompleted</p>
-      <p class="tab">gym</p>
-      <p class="tab">university</p>
-      <p class="tab">work</p>
-      <p class="tab">notes</p>
+      <div class="project-nav-wrapper active">
+        <p class="tab">today</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">all</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">completed</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">uncompleted</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">gym</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">university</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">work</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+
+      <div class="project-nav-wrapper">
+        <p class="tab">notes</p>
+        <div class="signs-wrapper">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
     </nav>
 
     <main class="main">
@@ -59,8 +120,8 @@
             <p class="task-priority">high priority</p>
           </div>
 
+          <i class="fa-solid fa-trash"></i>
           <i class="fa-solid fa-pen-to-square"></i>
-          <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
 
@@ -227,6 +288,25 @@
         <div class="form-entry">
           <label for="date">Date</label>
           <input type="datetime-local" name="date" id="date" required>
+        </div>
+
+        <div class="form-entry">
+          <label for="description">Description</label>
+          <textarea name="description" id="description"></textarea>
+        </div>
+
+        <button>Save</button>
+      </form>
+    </div>
+
+    <div class="edit-project">
+      <i class="fa-solid fa-xmark"></i>
+      <h3>Edit project</h3>
+
+      <form action="">
+        <div class="form-entry">
+          <label for="project-name">project Name</label>
+          <input type="text" name="project-name" id="project-name" required>
         </div>
 
         <div class="form-entry">
