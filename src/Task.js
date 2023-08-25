@@ -1,4 +1,6 @@
 export default function Task(name, priority, date, description) {
+  let finished = false;
+
   const getName = () => name;
   const setName = (newName) => (name = newName);
 
@@ -11,6 +13,8 @@ export default function Task(name, priority, date, description) {
   const getDescription = () => description;
   const setDescription = (newDescription) => (description = newDescription);
 
+  const changeState = () => (finished = finished ? false : true);
+
   return {
     getName,
     setName,
@@ -20,5 +24,6 @@ export default function Task(name, priority, date, description) {
     setDate,
     getDescription,
     setDescription,
+    changeState,
   };
-};
+}
