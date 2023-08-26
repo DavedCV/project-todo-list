@@ -112,6 +112,9 @@ const setTasks = () => {
     taskCheck.classList.add("task-check");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.addEventListener("change", () => {
+      taskCard.classList.toggle("done");
+    });
     taskCheck.appendChild(checkbox);
 
     const taskContent = document.createElement("div");

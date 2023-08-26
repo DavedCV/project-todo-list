@@ -211,6 +211,7 @@ body {
   gap: 2rem;
 
   padding: 1.5rem;
+
 }
 
 .main .task-card.done {
@@ -274,6 +275,11 @@ body {
 
   background-color: var(--blue);
   box-shadow: 0 0 2px var(--blue);
+}
+
+.task-card.done .task-content::after {
+  background-color: var(--green);
+  box-shadow: 0 0 2px var(--green);
 }
 
 .task-card .task-info {
