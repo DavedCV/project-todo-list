@@ -4,6 +4,11 @@ import { format } from "date-fns";
 let currentProject = undefined;
 let navBarActiveElement = undefined;
 
+const setHeaderProjectTitle = () => {
+  const headerProjectTitle = document.querySelector(".project-section-wrapper > p");
+  headerProjectTitle.textContent = currentProject;
+}
+
 const setNavbar = () => {
   const navbar = document.querySelector(".navbar-projects");
   const projectSections = Todo.getProjectsNames();
@@ -37,6 +42,7 @@ const setNavbar = () => {
       navBarActiveElement = this;
       navBarActiveElement.classList.add("active");
       currentProject = project;
+      setHeaderProjectTitle();
       setTasks();
     });
 

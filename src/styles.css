@@ -147,9 +147,16 @@ body {
   text-align: center;
 }
 
+.header .header-text .project-section-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--grey-f);
+}
+
 .header .header-text .signs-wrapper {
   font-size: 0.8rem;
-  color: var(--grey-f);
 }
 
 /* style navbar --------------------------------------------------------------*/
