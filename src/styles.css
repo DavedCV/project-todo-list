@@ -460,6 +460,11 @@ body {
   right: 1rem;
 }
 
+option,
+select {
+  text-transform: capitalize;
+}
+
 /* task details info ---------------------------------------------------------*/
 
 .task-details-info {

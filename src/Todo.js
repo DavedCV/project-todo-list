@@ -3,7 +3,7 @@ import Task from "./Task.js";
 
 let projects = [];
 
-const init = () => {
+const initTodo = () => {
   const today = Project(
     "today",
     "project section where task with date equals to the system date are bundled",
@@ -73,7 +73,7 @@ const createTask = (
 ) => {
   const project = projects.filter(
     (project) => project.getName() === projectName,
-  );
+  )[0];
   project.addTask(Task(taskName, taskPriority, taskDate, taskDescription));
 };
 
@@ -97,7 +97,7 @@ const editTask = (
 };
 
 export {
-  init,
+  initTodo,
   createNewProject,
   deleteProject,
   editProject,

@@ -22,7 +22,7 @@ const setHeaderProjectTitle = () => {
 const setNavbar = () => {
   const navbar = document.querySelector(".navbar-projects");
   const projectSections = Todo.getProjectsNames();
-  console.log(projectSections);
+  navbar.innerHTML = "";
 
   for (let project of projectSections) {
     const projectNavWrapper = document.createElement("div");
@@ -111,6 +111,25 @@ const setTasks = () => {
   }
 };
 
+const setMenuTaskOptions = () => {
+  const projectsNames = Todo.getProjectsNames();
+
+  const selectCreateMenu = document.querySelector("select#project");
+  const selectEditMenu = document.querySelector("select#project-2");
+
+  selectCreateMenu.innerHTML = "";
+  selectEditMenu.innerHTML = "";
+
+  for (let project of projectsNames) {
+    const option = document.createElement("option");
+    option.textContent = project;
+    const optionCopy = option.cloneNode(true);
+
+    selectCreateMenu.appendChild(option);
+    selectEditMenu.appendChild(optionCopy);
+  }
+};
+
 const setStaticButtonsListeners = () => {
   /* create task and project buttons*/
   const buttonCreateTask = document.querySelector(
@@ -157,4 +176,71 @@ const setStaticButtonsListeners = () => {
   buttonDeleteProjectDesktop.addEventListener("click", () => {});
 };
 
-export { setNavbar, setTasks, setCurrentDate, setStaticButtonsListeners };
+const setCreateTaskListener = () => {
+  const createTaskForm = document.querySelector(".create-task form");
+  createTaskForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let data = new FormData(event.target);
+    data = Object.fromEntries(data.entries());
+
+    Todo.createTask(
+      data["project"].toLowerCase(),
+      data["task-name"].toLowerCase(),
+      data["priority"].toLowerCase(),
+      new Date(data["date"]),
+      data["description"].toLowerCase(),
+    );
+
+    if (currentProject === data["project"]) setTasks();
+    this.reset();
+  });
+
+  const closeButton = document.querySelector(".create-task > i");
+  closeButton.addEventListener("click", () => {
+    document.querySelector(".create-task").classList.remove("active");
+  });
+};
+
+const setCreateProjectListener = () => {
+  const createProjectForm = document.querySelector(".create-project form");
+  createProjectForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let data = new FormData(event.target);
+    data = Object.fromEntries(data.entries());
+
+    Todo.createNewProject(
+      data["project-name"].toLowerCase(),
+      data["description"].toLowerCase(),
+    );
+
+    setNavbar();
+    setMenuTaskOptions();
+    this.reset();
+  });
+
+  const closeButton = document.querySelector(".create-project > i");
+  closeButton.addEventListener("click", () => {
+    document.querySelector(".create-project").classList.remove("active");
+  });
+};
+
+const initDom = () => {
+  currentProject = "today";
+
+  setCurrentDate();
+  setNavbar();
+  setTasks();
+  setStaticButtonsListeners();
+  setMenuTaskOptions();
+  setCreateTaskListener();
+  setCreateProjectListener();
+
+  navBarActiveElement = document.querySelector(
+    ".project-nav-wrapper:first-child",
+  );
+  navBarActiveElement.classList.add("active");
+};
+
+export { initDom };
