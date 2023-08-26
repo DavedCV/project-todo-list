@@ -1,7 +1,14 @@
 import "./styles.css";
-import { setNavbar, setTasks } from "./Dom.js";
+import {
+  setCurrentDate,
+  setNavbar,
+  setStaticButtonsListeners,
+  setTasks,
+} from "./Dom.js";
 import { init } from "./Todo.js";
 
 init();
+setCurrentDate();
 setNavbar();
+setStaticButtonsListeners();
 setTasks();

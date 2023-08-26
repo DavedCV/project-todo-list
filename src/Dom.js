@@ -3,11 +3,21 @@ import { format } from "date-fns";
 
 let currentProject = undefined;
 let navBarActiveElement = undefined;
+let currentDate = undefined;
+
+const setCurrentDate = () => {
+  const headerDate = document.querySelector(".header-text > p:first-child");
+
+  currentDate = new Date();
+  headerDate.textContent = format(currentDate, "dd.MM.yyyy");
+};
 
 const setHeaderProjectTitle = () => {
-  const headerProjectTitle = document.querySelector(".project-section-wrapper > p");
+  const headerProjectTitle = document.querySelector(
+    ".project-section-wrapper > p",
+  );
   headerProjectTitle.textContent = currentProject;
-}
+};
 
 const setNavbar = () => {
   const navbar = document.querySelector(".navbar-projects");
@@ -101,4 +111,50 @@ const setTasks = () => {
   }
 };
 
-export { setNavbar, setTasks };
+const setStaticButtonsListeners = () => {
+  /* create task and project buttons*/
+  const buttonCreateTask = document.querySelector(
+    ".buttons button:first-child",
+  );
+  const buttonCreateProject = document.querySelector(
+    ".buttons button:last-child",
+  );
+
+  buttonCreateTask.addEventListener("click", () => {
+    const menuCreateTask = document.querySelector(".create-task");
+    menuCreateTask.classList.add("active");
+  });
+  buttonCreateProject.addEventListener("click", () => {
+    const menuCreateProject = document.querySelector(".create-project");
+    menuCreateProject.classList.add("active");
+  });
+
+  /* edit and delete project buttons*/
+
+  const buttonEditProjectMobile = document.querySelector(
+    ".project-section-wrapper .signs-wrapper i:first-child",
+  );
+  const buttonDeleteProjectMobile = document.querySelector(
+    ".project-section-wrapper .signs-wrapper i:last-child",
+  );
+  const buttonEditProjectDesktop = document.querySelector(
+    ".project-nav-wrapper .signs-wrapper i:first-child",
+  );
+  const buttonDeleteProjectDesktop = document.querySelector(
+    ".project-nav-wrapper .signs-wrapper i:last-child",
+  );
+
+  buttonEditProjectMobile.addEventListener("click", () => {
+    const editProjectMenu = document.querySelector(".edit-project");
+    editProjectMenu.classList.add("active");
+  });
+  buttonEditProjectDesktop.addEventListener("click", () => {
+    const editProjectMenu = document.querySelector(".edit-project");
+    editProjectMenu.classList.add("active");
+  });
+
+  buttonDeleteProjectMobile.addEventListener("click", () => {});
+  buttonDeleteProjectDesktop.addEventListener("click", () => {});
+};
+
+export { setNavbar, setTasks, setCurrentDate, setStaticButtonsListeners };
