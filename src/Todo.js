@@ -87,7 +87,7 @@ const editTask = (
 ) => {
   const project = projects.filter(
     (project) => project.getName() === projectName,
-  );
+  )[0];
   const task = project.getTask(originalTaskName);
 
   task.setName(taskName);

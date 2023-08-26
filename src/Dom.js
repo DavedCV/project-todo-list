@@ -4,6 +4,7 @@ import { format } from "date-fns";
 let currentProject = undefined;
 let navBarActiveElement = undefined;
 let currentDate = undefined;
+let currentEditCard = undefined;
 
 const setCurrentDate = () => {
   const headerDate = document.querySelector(".header-text > p:first-child");
@@ -19,14 +20,43 @@ const setHeaderProjectTitle = () => {
   headerProjectTitle.textContent = currentProject;
 };
 
+const setMenuTaskOptions = () => {
+  const projectsNames = Todo.getProjectsNames();
+
+  const selectCreateMenu = document.querySelector("select#project");
+  const selectEditMenu = document.querySelector("select#project-2");
+
+  selectCreateMenu.innerHTML = "";
+  selectEditMenu.innerHTML = "";
+
+  for (let project of projectsNames) {
+    const option = document.createElement("option");
+    option.textContent = project;
+    option.setAttribute("value", project);
+
+    const optionCopy = option.cloneNode(true);
+
+    selectCreateMenu.appendChild(option);
+    selectEditMenu.appendChild(optionCopy);
+  }
+};
+
 const setNavbar = () => {
   const navbar = document.querySelector(".navbar-projects");
   const projectSections = Todo.getProjectsNames();
   navbar.innerHTML = "";
+  setMenuTaskOptions();
 
   for (let project of projectSections) {
     const projectNavWrapper = document.createElement("div");
     projectNavWrapper.classList.add("project-nav-wrapper");
+
+    if (navbar.childElementCount === 0) {
+      projectNavWrapper.classList.add("active");
+      navBarActiveElement = projectNavWrapper;
+      currentProject = project;
+      setHeaderProjectTitle();
+    }
 
     const projectName = document.createElement("p");
     projectName.classList.add("tab");
@@ -36,9 +66,15 @@ const setNavbar = () => {
     signsWrapper.classList.add("signs-wrapper");
     const editSign = document.createElement("i");
     editSign.setAttribute("class", "fa-solid fa-pen-to-square");
+    editSign.addEventListener("click", () => {
+      const editProjectMenu = document.querySelector(".edit-project");
+      editProjectMenu.classList.add("active");
+      setEditProjectMenuContent(editProjectMenu);
+    });
     signsWrapper.appendChild(editSign);
     const deleteSign = document.createElement("i");
     deleteSign.setAttribute("class", "fa-solid fa-trash");
+    deleteSign.addEventListener("click", () => {});
     signsWrapper.appendChild(deleteSign);
 
     projectNavWrapper.appendChild(projectName);
@@ -99,9 +135,16 @@ const setTasks = () => {
 
     const editSign = document.createElement("i");
     editSign.setAttribute("class", "fa-solid fa-pen-to-square");
+    editSign.addEventListener("click", () => {
+      const editTaskMenu = document.querySelector(".edit-task");
+      editTaskMenu.classList.add("active");
+      setEditTaskMenuContent(editTaskMenu, task);
+      currentEditCard = task.getName();
+    });
     taskContent.appendChild(editSign);
     const deleteSign = document.createElement("i");
     deleteSign.setAttribute("class", "fa-solid fa-trash");
+    deleteSign.addEventListener("click", () => {});
     taskContent.appendChild(deleteSign);
 
     taskCard.appendChild(taskCheck);
@@ -111,23 +154,36 @@ const setTasks = () => {
   }
 };
 
-const setMenuTaskOptions = () => {
-  const projectsNames = Todo.getProjectsNames();
+const setEditProjectMenuContent = (editProjectMenu) => {
+  const name = editProjectMenu.querySelector("input#project-name");
+  name.value = currentProject;
 
-  const selectCreateMenu = document.querySelector("select#project");
-  const selectEditMenu = document.querySelector("select#project-2");
+  const description = editProjectMenu.querySelector("textarea#description");
+  description.textContent = Todo.getProjectDescription(currentProject);
+};
 
-  selectCreateMenu.innerHTML = "";
-  selectEditMenu.innerHTML = "";
+const setEditTaskMenuContent = (editTaskMenu, task) => {
+  const project = editTaskMenu.querySelector(
+    `select#project-2 option[value="${currentProject}"]`,
+  );
+  project.setAttribute("selected", "");
 
-  for (let project of projectsNames) {
-    const option = document.createElement("option");
-    option.textContent = project;
-    const optionCopy = option.cloneNode(true);
+  const name = editTaskMenu.querySelector("input#task-name");
+  name.value = task.getName();
 
-    selectCreateMenu.appendChild(option);
-    selectEditMenu.appendChild(optionCopy);
-  }
+  const priority = editTaskMenu.querySelector(
+    `input[value=${task.getPriority()}]`,
+  );
+  priority.setAttribute("checked", "");
+
+  const date = editTaskMenu.querySelector("input#date");
+  date.value =
+    format(task.getDate(), "yyyy-MM-dd") +
+    "T" +
+    format(task.getDate(), "HH:mm");
+
+  const description = editTaskMenu.querySelector("textarea#description");
+  description.textContent = task.getDescription();
 };
 
 const setStaticButtonsListeners = () => {
@@ -148,7 +204,7 @@ const setStaticButtonsListeners = () => {
     menuCreateProject.classList.add("active");
   });
 
-  /* edit and delete project buttons*/
+  /* edit and delete project buttons in the mobile layout*/
 
   const buttonEditProjectMobile = document.querySelector(
     ".project-section-wrapper .signs-wrapper i:first-child",
@@ -156,24 +212,13 @@ const setStaticButtonsListeners = () => {
   const buttonDeleteProjectMobile = document.querySelector(
     ".project-section-wrapper .signs-wrapper i:last-child",
   );
-  const buttonEditProjectDesktop = document.querySelector(
-    ".project-nav-wrapper .signs-wrapper i:first-child",
-  );
-  const buttonDeleteProjectDesktop = document.querySelector(
-    ".project-nav-wrapper .signs-wrapper i:last-child",
-  );
 
   buttonEditProjectMobile.addEventListener("click", () => {
     const editProjectMenu = document.querySelector(".edit-project");
     editProjectMenu.classList.add("active");
+    setEditProjectMenuContent(editProjectMenu);
   });
-  buttonEditProjectDesktop.addEventListener("click", () => {
-    const editProjectMenu = document.querySelector(".edit-project");
-    editProjectMenu.classList.add("active");
-  });
-
   buttonDeleteProjectMobile.addEventListener("click", () => {});
-  buttonDeleteProjectDesktop.addEventListener("click", () => {});
 };
 
 const setCreateTaskListener = () => {
@@ -216,7 +261,6 @@ const setCreateProjectListener = () => {
     );
 
     setNavbar();
-    setMenuTaskOptions();
     this.reset();
   });
 
@@ -226,9 +270,56 @@ const setCreateProjectListener = () => {
   });
 };
 
-const initDom = () => {
-  currentProject = "today";
+const setEditProjectListener = () => {
+  const editProjectForm = document.querySelector(".edit-project form");
+  editProjectForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    let data = new FormData(event.target);
+    data = Object.fromEntries(data.entries());
+
+    Todo.editProject(currentProject, data["project-name"], data["description"]);
+
+    currentProject = data["project-name"];
+
+    setNavbar();
+    (document.querySelector(".edit-project")).classList.remove("active");
+  });
+
+  const closeButton = document.querySelector(".edit-project > i");
+  closeButton.addEventListener("click", () => {
+    document.querySelector(".edit-project").classList.remove("active");
+  });
+};
+
+const setEditTaskListener = () => {
+  const editTaskForm = document.querySelector(".edit-task form");
+  editTaskForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let data = new FormData(event.target);
+    data = Object.fromEntries(data.entries());
+
+    Todo.editTask(
+      currentProject,
+      currentEditCard,
+      data["task-name"],
+      data["priority"],
+      new Date(data["date"]),
+      data["description"],
+    );
+
+    setTasks();
+    (document.querySelector(".edit-task")).classList.remove("active");
+  });
+
+  const closeButton = document.querySelector(".edit-task > i");
+  closeButton.addEventListener("click", () => {
+    document.querySelector(".edit-task").classList.remove("active");
+  });
+};
+
+const initDom = () => {
   setCurrentDate();
   setNavbar();
   setTasks();
@@ -236,11 +327,8 @@ const initDom = () => {
   setMenuTaskOptions();
   setCreateTaskListener();
   setCreateProjectListener();
-
-  navBarActiveElement = document.querySelector(
-    ".project-nav-wrapper:first-child",
-  );
-  navBarActiveElement.classList.add("active");
+  setEditProjectListener();
+  setEditTaskListener();
 };
 
 export { initDom };
