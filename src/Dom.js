@@ -303,6 +303,7 @@ const setEditTaskListener = () => {
     Todo.editTask(
       currentProject,
       currentEditCard,
+      data["project"],
       data["task-name"],
       data["priority"],
       new Date(data["date"]),

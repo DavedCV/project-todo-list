@@ -78,17 +78,26 @@ const createTask = (
 };
 
 const editTask = (
-  projectName,
+  originalProjectName,
   originalTaskName,
+  taskProject,
   taskName,
   taskPriority,
   taskDate,
   taskDescription,
 ) => {
   const project = projects.filter(
-    (project) => project.getName() === projectName,
+    (project) => project.getName() === originalProjectName,
+  )[0];
+  const project2 = projects.filter(
+    (project) => project.getName() === taskProject,
   )[0];
   const task = project.getTask(originalTaskName);
+
+  if (originalProjectName !== taskProject) {
+    project.deleteTask(originalTaskName);
+    project2.addTask(task);
+  }
 
   task.setName(taskName);
   task.setPriority(taskPriority);
