@@ -136,6 +136,11 @@ const setTasks = () => {
 
     const taskInfo = document.createElement("div");
     taskInfo.classList.add("task-info");
+    taskInfo.addEventListener("click", () => {
+      const taskDetails = document.querySelector(".task-details-info");
+      setTaskDetailsContent(task);
+      taskDetails.classList.add("active");
+    });
     taskContent.appendChild(taskInfo);
     const taskTitle = document.createElement("h3");
     taskTitle.classList.add("task-title");
@@ -183,7 +188,7 @@ const setEditTaskMenuContent = (editTaskMenu, task) => {
   const project = editTaskMenu.querySelector(
     `select#project-2 option[value="${currentProject}"]`,
   );
-  
+
   if (project != null) project.setAttribute("selected", "");
 
   const name = editTaskMenu.querySelector("input#task-name");
@@ -202,6 +207,23 @@ const setEditTaskMenuContent = (editTaskMenu, task) => {
 
   const description = editTaskMenu.querySelector("textarea#description");
   description.value = task.getDescription();
+};
+
+const setTaskDetailsContent = (task) => {
+  const title = document.querySelector(".task-details-info > h2");
+  title.textContent = task.getName();
+
+  const date = document.querySelector(".details-date > p");
+  date.textContent = format(task.getDate(), "dd.MM.yyyy");
+
+  const project = document.querySelector(".details-project > p");
+  project.textContent = currentProject;
+
+  const priority = document.querySelector(".details-priority > p");
+  priority.textContent = task.getPriority();
+
+  const description = document.querySelector(".details-description > p");
+  description.textContent = task.getDescription();
 };
 
 const setStaticButtonsListeners = () => {
@@ -237,6 +259,34 @@ const setStaticButtonsListeners = () => {
     setEditProjectMenuContent(editProjectMenu);
   });
   buttonDeleteProjectMobile.addEventListener("click", () => {});
+
+  /* close menu buttons */
+  const taskDetailsInfo = document.querySelector(".task-details-info");
+  taskDetailsInfo.firstElementChild.addEventListener("click", () =>
+    taskDetailsInfo.classList.remove("active"),
+  );
+
+  const createTaskMenu = document.querySelector(".create-task");
+  createTaskMenu.firstElementChild.addEventListener("click", () => {
+    createTaskMenu.classList.remove("active");
+    createTaskMenu.querySelector("form").reset();
+  });
+
+  const createProjectMenu = document.querySelector(".create-project");
+  createProjectMenu.firstElementChild.addEventListener("click", () => {
+    createProjectMenu.classList.remove("active");
+    createProjectMenu.querySelector("form").reset();
+  });
+
+  const editProjectMenu = document.querySelector(".edit-project");
+  editProjectMenu.firstElementChild.addEventListener("click", () => {
+    editProjectMenu.classList.remove("active");
+  });
+
+  const editTaskMenu = document.querySelector(".edit-task");
+  editTaskMenu.firstElementChild.addEventListener("click", () => {
+    editTaskMenu.classList.remove("active");
+  });
 };
 
 const setCreateTaskListener = () => {
@@ -258,12 +308,6 @@ const setCreateTaskListener = () => {
     setTasks();
     this.reset();
   });
-
-  const closeButton = document.querySelector(".create-task > i");
-  closeButton.addEventListener("click", () => {
-    document.querySelector(".create-task").classList.remove("active");
-    createTaskForm.reset();
-  });
 };
 
 const setCreateProjectListener = () => {
@@ -282,12 +326,6 @@ const setCreateProjectListener = () => {
     setNavbar();
     this.reset();
   });
-
-  const closeButton = document.querySelector(".create-project > i");
-  closeButton.addEventListener("click", () => {
-    document.querySelector(".create-project").classList.remove("active");
-    createProjectForm.reset();
-  });
 };
 
 const setEditProjectListener = () => {
@@ -303,11 +341,6 @@ const setEditProjectListener = () => {
     currentProject = data["project-name"];
 
     setNavbar();
-    document.querySelector(".edit-project").classList.remove("active");
-  });
-
-  const closeButton = document.querySelector(".edit-project > i");
-  closeButton.addEventListener("click", () => {
     document.querySelector(".edit-project").classList.remove("active");
   });
 };
@@ -331,11 +364,6 @@ const setEditTaskListener = () => {
     );
 
     setTasks();
-    document.querySelector(".edit-task").classList.remove("active");
-  });
-
-  const closeButton = document.querySelector(".edit-task > i");
-  closeButton.addEventListener("click", () => {
     document.querySelector(".edit-task").classList.remove("active");
   });
 };

@@ -287,6 +287,8 @@ body {
   
   text-align: center;
   text-transform: capitalize;
+
+  cursor: pointer;
 }
 
 .task-card.done .task-info {
