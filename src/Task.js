@@ -14,6 +14,7 @@ export default function Task(name, priority, date, description) {
   const setDescription = (newDescription) => (description = newDescription);
 
   const changeState = () => (finished = finished ? false : true);
+  const getState = () => finished;
 
   return {
     getName,
@@ -25,5 +26,6 @@ export default function Task(name, priority, date, description) {
     getDescription,
     setDescription,
     changeState,
+    getState
   };
 }

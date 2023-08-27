@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Project from "./Project.js";
 import Task from "./Task.js";
 
@@ -74,7 +75,15 @@ const createTask = (
   const project = projects.filter(
     (project) => project.getName() === projectName,
   )[0];
-  project.addTask(Task(taskName, taskPriority, taskDate, taskDescription));
+  const uncompleted = projects.filter(
+    (project) => project.getName() === "uncompleted",
+  )[0];
+  const all = projects.filter((project) => project.getName() === "all")[0];
+
+  const newTask = Task(taskName, taskPriority, taskDate, taskDescription);
+  project.addTask(newTask);
+  uncompleted.addTask(newTask);
+  all.addTask(newTask);
 };
 
 const editTask = (
@@ -89,12 +98,12 @@ const editTask = (
   const project = projects.filter(
     (project) => project.getName() === originalProjectName,
   )[0];
-  const project2 = projects.filter(
-    (project) => project.getName() === taskProject,
-  )[0];
   const task = project.getTask(originalTaskName);
 
   if (originalProjectName !== taskProject) {
+    const project2 = projects.filter(
+      (project) => project.getName() === taskProject,
+    )[0];
     project.deleteTask(originalTaskName);
     project2.addTask(task);
   }
@@ -103,6 +112,43 @@ const editTask = (
   task.setPriority(taskPriority);
   task.setDate(taskDate);
   task.setDescription(taskDescription);
+};
+
+const checkTask = (projectName, taskName) => {
+  const project = projects.filter(
+    (project) => project.getName() === projectName,
+  )[0];
+  const completed = projects.filter(
+    (project) => project.getName() === "completed",
+  )[0];
+  const uncompleted = projects.filter(
+    (project) => project.getName() === "uncompleted",
+  )[0];
+
+  const task = project.getTask(taskName);
+  const finished = task.changeState();
+
+  if (finished) {
+    uncompleted.deleteTask(taskName);
+    completed.addTask(task);
+  } else {
+    completed.deleteTask(taskName);
+    uncompleted.addTask(task);
+  }
+};
+
+const todayTasks = () => {
+  const all = projects.filter((project) => project.getName() === "all")[0];
+
+  const todayTasks = all
+    .getTasksCopy()
+    .filter(
+      (task) =>
+        format(task.getDate(), "dd/MM/yyyy") ===
+        format(new Date(), "dd/MM/yyyy"),
+    );
+
+  return todayTasks;
 };
 
 export {
@@ -115,4 +161,6 @@ export {
   getProjectDescription,
   createTask,
   editTask,
+  checkTask,
+  todayTasks,
 };

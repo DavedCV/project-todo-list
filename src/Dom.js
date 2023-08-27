@@ -30,14 +30,20 @@ const setMenuTaskOptions = () => {
   selectEditMenu.innerHTML = "";
 
   for (let project of projectsNames) {
-    const option = document.createElement("option");
-    option.textContent = project;
-    option.setAttribute("value", project);
+    if (
+      project != "uncompleted" &&
+      project != "completed" &&
+      project != "all"
+    ) {
+      const option = document.createElement("option");
+      option.textContent = project;
+      option.setAttribute("value", project);
 
-    const optionCopy = option.cloneNode(true);
+      const optionCopy = option.cloneNode(true);
 
-    selectCreateMenu.appendChild(option);
-    selectEditMenu.appendChild(optionCopy);
+      selectCreateMenu.appendChild(option);
+      selectEditMenu.appendChild(optionCopy);
+    }
   }
 };
 
@@ -102,18 +108,24 @@ const setTasks = () => {
   const main = document.querySelector(".main");
   main.innerHTML = "";
 
-  const tasks = Todo.getProjectTasks(currentProject);
+  let tasks = undefined;
+  if (currentProject !== "today") tasks = Todo.getProjectTasks(currentProject);
+  else tasks = Todo.todayTasks();
 
   for (let task of tasks) {
     const taskCard = document.createElement("div");
     taskCard.classList.add("task-card");
 
+    if (task.getState()) taskCard.classList.add("done");
+
     const taskCheck = document.createElement("div");
     taskCheck.classList.add("task-check");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    if (task.getState()) checkbox.setAttribute("checked", "");
     checkbox.addEventListener("change", () => {
       taskCard.classList.toggle("done");
+      Todo.checkTask(currentProject, task.getName());
     });
     taskCheck.appendChild(checkbox);
 
@@ -286,7 +298,7 @@ const setEditProjectListener = () => {
     currentProject = data["project-name"];
 
     setNavbar();
-    (document.querySelector(".edit-project")).classList.remove("active");
+    document.querySelector(".edit-project").classList.remove("active");
   });
 
   const closeButton = document.querySelector(".edit-project > i");
@@ -314,7 +326,7 @@ const setEditTaskListener = () => {
     );
 
     setTasks();
-    (document.querySelector(".edit-task")).classList.remove("active");
+    document.querySelector(".edit-task").classList.remove("active");
   });
 
   const closeButton = document.querySelector(".edit-task > i");
