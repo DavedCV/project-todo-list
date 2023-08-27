@@ -173,6 +173,7 @@ body {
 .navbar-projects .project-nav-wrapper {
   text-transform: capitalize;
   color: var(--grey-f);
+  cursor: pointer;
 }
 
 .navbar-projects .project-nav-wrapper.active {
@@ -182,7 +183,6 @@ body {
 .navbar-projects .project-nav-wrapper .signs-wrapper {
   display: none;
 }
-
 
 /* style main ----------------------------------------------------------------*/
 
@@ -233,6 +233,7 @@ body {
 
   border: 1px solid var(--grey-f);
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .task-card input:checked {
@@ -261,6 +262,10 @@ body {
 .task-card .task-content {
   width: 100%;
   height: 100%;
+}
+
+.task-card .task-content i {
+  cursor: pointer;
 }
 
 .task-card .task-content::after {
@@ -312,6 +317,7 @@ body {
   background-color: var(--blue);
   color: white;
   box-shadow: 0 0 5px var(--blue);
+  cursor: pointer;
 }
 
 .buttons button:is(:hover, :focus) {
