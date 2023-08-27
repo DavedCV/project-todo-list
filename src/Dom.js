@@ -33,7 +33,8 @@ const setMenuTaskOptions = () => {
     if (
       project != "uncompleted" &&
       project != "completed" &&
-      project != "all"
+      project != "all" &&
+      project != "today"
     ) {
       const option = document.createElement("option");
       option.textContent = project;
@@ -126,6 +127,7 @@ const setTasks = () => {
     checkbox.addEventListener("change", () => {
       taskCard.classList.toggle("done");
       Todo.checkTask(currentProject, task.getName());
+      setTasks();
     });
     taskCheck.appendChild(checkbox);
 
@@ -174,14 +176,15 @@ const setEditProjectMenuContent = (editProjectMenu) => {
   name.value = currentProject;
 
   const description = editProjectMenu.querySelector("textarea#description");
-  description.textContent = Todo.getProjectDescription(currentProject);
+  description.value = Todo.getProjectDescription(currentProject);
 };
 
 const setEditTaskMenuContent = (editTaskMenu, task) => {
   const project = editTaskMenu.querySelector(
     `select#project-2 option[value="${currentProject}"]`,
   );
-  project.setAttribute("selected", "");
+  
+  if (project != null) project.setAttribute("selected", "");
 
   const name = editTaskMenu.querySelector("input#task-name");
   name.value = task.getName();
@@ -198,7 +201,7 @@ const setEditTaskMenuContent = (editTaskMenu, task) => {
     format(task.getDate(), "HH:mm");
 
   const description = editTaskMenu.querySelector("textarea#description");
-  description.textContent = task.getDescription();
+  description.value = task.getDescription();
 };
 
 const setStaticButtonsListeners = () => {
@@ -252,13 +255,14 @@ const setCreateTaskListener = () => {
       data["description"].toLowerCase(),
     );
 
-    if (currentProject === data["project"]) setTasks();
+    setTasks();
     this.reset();
   });
 
   const closeButton = document.querySelector(".create-task > i");
   closeButton.addEventListener("click", () => {
     document.querySelector(".create-task").classList.remove("active");
+    createTaskForm.reset();
   });
 };
 
@@ -282,6 +286,7 @@ const setCreateProjectListener = () => {
   const closeButton = document.querySelector(".create-project > i");
   closeButton.addEventListener("click", () => {
     document.querySelector(".create-project").classList.remove("active");
+    createProjectForm.reset();
   });
 };
 

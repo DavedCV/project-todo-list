@@ -28,7 +28,10 @@ const initTodo = () => {
     new Date(),
     "Welcome to 'Todo List', start creating task and projects, and get ready to be productive!",
   );
+
   all.addTask(defaultTask);
+  uncompleted.addTask(defaultTask);
+  today.addTask(defaultTask);
 
   projects = [today, all, completed, uncompleted];
 };
@@ -147,6 +150,9 @@ const todayTasks = () => {
         format(task.getDate(), "dd/MM/yyyy") ===
         format(new Date(), "dd/MM/yyyy"),
     );
+
+  const today = projects.filter((project) => project.getName() === "today")[0];
+  today.setTasks(todayTasks);
 
   return todayTasks;
 };

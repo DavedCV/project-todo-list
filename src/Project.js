@@ -23,6 +23,8 @@ export default function Project(name, description) {
     tasks.splice(index, 1);
   };
 
+  const setTasks = (newTasks) => tasks.splice(0, tasks.length, ...newTasks);
+
   return {
     getName,
     setName,
@@ -33,5 +35,6 @@ export default function Project(name, description) {
     getTask,
     addTask,
     deleteTask,
+    setTasks,
   };
 }
