@@ -1,5 +1,20 @@
-export default function Task(name, priority, date, description) {
-  let finished = false;
+export default function Task(
+  name,
+  priority,
+  date,
+  description,
+  project,
+  finished = false,
+) {
+  const toJSON = () => {
+    return {
+      name,
+      priority,
+      date,
+      description,
+      finished,
+    };
+  };
 
   const getName = () => name;
   const setName = (newName) => (name = newName);
@@ -13,6 +28,9 @@ export default function Task(name, priority, date, description) {
   const getDescription = () => description;
   const setDescription = (newDescription) => (description = newDescription);
 
+  const getProject = () => project;
+  const setProject = (newProject) => (project = newProject);
+
   const changeState = () => (finished = finished ? false : true);
   const getState = () => finished;
 
@@ -25,7 +43,10 @@ export default function Task(name, priority, date, description) {
     setDate,
     getDescription,
     setDescription,
+    getProject,
+    setProject,
     changeState,
-    getState
+    getState,
+    toJSON,
   };
 }

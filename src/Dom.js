@@ -4,7 +4,7 @@ import { format } from "date-fns";
 let currentProject = undefined;
 let navBarActiveElement = undefined;
 let currentDate = undefined;
-let currentEditCard = undefined;
+let currentEditTaskName = undefined;
 
 const setCurrentDate = () => {
   const headerDate = document.querySelector(".header-text > p:first-child");
@@ -131,7 +131,7 @@ const setTasks = () => {
     if (task.getState()) checkbox.setAttribute("checked", "");
     checkbox.addEventListener("change", () => {
       taskCard.classList.toggle("done");
-      Todo.checkTask(currentProject, task.getName());
+      Todo.checkTask(task.getName());
       setTasks();
     });
     taskCheck.appendChild(checkbox);
@@ -166,13 +166,13 @@ const setTasks = () => {
       const editTaskMenu = document.querySelector(".edit-task");
       editTaskMenu.classList.add("active");
       setEditTaskMenuContent(editTaskMenu, task);
-      currentEditCard = task.getName();
+      currentEditTaskName = task.getName();
     });
     taskContent.appendChild(editSign);
     const deleteSign = document.createElement("i");
     deleteSign.setAttribute("class", "fa-solid fa-trash");
     deleteSign.addEventListener("click", () => {
-      Todo.deleteTask(currentProject, task.getName());
+      Todo.deleteTask(task.getName());
       setTasks();
     });
     taskContent.appendChild(deleteSign);
@@ -194,7 +194,7 @@ const setEditProjectMenuContent = (editProjectMenu) => {
 
 const setEditTaskMenuContent = (editTaskMenu, task) => {
   const project = editTaskMenu.querySelector(
-    `select#project-2 option[value="${currentProject}"]`,
+    `select#project-2 option[value="${task.getProject().getName()}"]`,
   );
 
   if (project != null) project.setAttribute("selected", "");
@@ -366,9 +366,9 @@ const setEditTaskListener = () => {
     let data = new FormData(event.target);
     data = Object.fromEntries(data.entries());
 
+    // TODO it's bad to send currentProject
     Todo.editTask(
-      currentProject,
-      currentEditCard,
+      currentEditTaskName,
       data["project"],
       data["task-name"],
       data["priority"],
