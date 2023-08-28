@@ -72,6 +72,8 @@ const retrieveSavedProjects = () => {
       });
       todayTasks();
     }
+  }else {
+    localStorage.setItem("projects", []);
   }
 };
 
