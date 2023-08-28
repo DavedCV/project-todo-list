@@ -34,22 +34,29 @@ const initTodo = () => {
     all,
   );
 
+  projects = [today, all, completed, uncompleted];
+
   all.addTask(defaultTask);
   uncompleted.addTask(defaultTask);
   today.addTask(defaultTask);
 
-  projects = [today, all, completed, uncompleted];
   retrieveSavedProjects();
 };
 
 const retrieveSavedProjects = () => {
   //localStorage.clear();
-  //console.log(JSON.parse(localStorage.getItem("projects")));
+  //console.log(localStorage.getItem("projects"));
 
   const savedProjects = JSON.parse(localStorage.getItem("projects"));
   if (savedProjects !== null) {
     for (let project of savedProjects) {
-      const retrievedProject = Project(project.name, project.description);
+      const existingProject = projects.filter(
+        (projectElement) => projectElement.getName() === project.name,
+      )[0];
+
+      const retrievedProject = existingProject
+        ? existingProject
+        : Project(project.name, project.description);
 
       const savedTasks = project.tasks.map((task) =>
         Task(
@@ -63,7 +70,7 @@ const retrieveSavedProjects = () => {
       );
 
       retrievedProject.setTasks(savedTasks);
-      projects.push(retrievedProject);
+      if (!retrievedProject) projects.push(retrievedProject);
 
       savedTasks.forEach((task) => {
         all.addTask(task);
@@ -72,8 +79,8 @@ const retrieveSavedProjects = () => {
       });
       todayTasks();
     }
-  }else {
-    localStorage.setItem("projects", []);
+  } else {
+    localStorage.setItem("projects", JSON.stringify([all]));
   }
 };
 
@@ -182,7 +189,7 @@ const createTask = (
   );
   project.addTask(newTask);
   uncompleted.addTask(newTask);
-  all.addTask(newTask);
+  if (projectName != "all") all.addTask(newTask);
 
   const savedProjects = JSON.parse(localStorage.getItem("projects"));
   for (let i = 0; i < savedProjects.length; i++) {

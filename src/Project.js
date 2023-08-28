@@ -21,7 +21,13 @@ export default function Project(name, description, tasks = []) {
   const getTasksNames = () => tasks.map((task) => task.getName());
   const getTask = (taskName) =>
     tasks.filter((task) => task.getName() === taskName)[0];
-  const addTask = (task) => tasks.push(task);
+  const addTask = (task) => {
+    if (
+      tasks.filter(
+        (taskElement) => (taskElement.getName() === task.getName())).length == 0
+    )
+      tasks.push(task);
+  };
   const deleteTask = (task) => {
     const index = tasks.findIndex((taskItem) => taskItem === task);
     if (index != -1) tasks.splice(index, 1);
