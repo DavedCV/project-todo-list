@@ -68,7 +68,7 @@ button {
   border-radius: 1rem;
 }
 
-input, 
+input,
 textarea,
 fieldset {
   outline: none;
@@ -289,7 +289,7 @@ body {
 
 .task-card .task-info {
   grid-column: 1 / 3;
-  
+
   text-align: center;
   text-transform: capitalize;
 
@@ -330,42 +330,43 @@ body {
 .create-project,
 .edit-task,
 .edit-project {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  height: 80%;
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: var(--blue);
+  color: white;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  text-transform: capitalize;
+
+  transition-duration: 500ms;
+  transition-property: transform;
+}
+
+.create-project,
+.edit-project {
+  height: 70%;
 }
 
 .create-task.active,
 .create-project.active,
 .edit-task.active,
 .edit-project.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  
-  height: 80%;
-
-  padding: 2rem;
-
-  border-radius: 2rem;
-  background-color: var(--blue);
-  color: white;
-
-  text-transform: capitalize;
+  transform: translateY(-100%);
 }
 
-.create-project.active,
-.edit-project.active {
-  height: 70%;
-}
-
-.create-task > form,
-.create-project > form,
-.edit-task > form,
-.edit-project > form {
+.create-task>form,
+.create-project>form,
+.edit-task>form,
+.edit-project>form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -428,10 +429,10 @@ body {
   height: 4rem;
 }
 
-.create-task form > button,
-.create-project form > button,
-.edit-task form > button,
-.edit-project form > button {
+.create-task form>button,
+.create-project form>button,
+.edit-task form>button,
+.edit-project form>button {
   align-self: center;
 
   background-color: white;
@@ -458,8 +459,8 @@ body {
   border: 2px solid white;
 }
 
-.create-task fieldset input:checked + label,
-.edit-task fieldset input:checked + label {
+.create-task fieldset input:checked+label,
+.edit-task fieldset input:checked+label {
   background-color: white;
   color: var(--blue);
   box-shadow: 0 0 10px white;
@@ -539,190 +540,199 @@ select {
 /* media queryes -------------------------------------------------------------*/
 
 @media (min-width: 1000px) {
-    .container {
-      grid-template-rows: 1fr 2fr 2fr 1fr;
-      grid-template-columns: 20% auto;
-      grid-template-areas:
-        "header main main" 
-        "nav main main"
-        "nav main main "
-        "buttons main main";
-    }
+  .container {
+    grid-template-rows: 1fr 2fr 2fr 1fr;
+    grid-template-columns: 20% auto;
+    grid-template-areas:
+      "header main main"
+      "nav main main"
+      "nav main main "
+      "buttons main main";
+  }
 
-    /* header ----------------------------------------------------------------*/
+  /* header ----------------------------------------------------------------*/
 
-    .header {
-      grid-area: header;
+  .header {
+    grid-area: header;
 
-      background-color: var(--blue);
-      color: white;
-      margin-bottom: 0;
-      border-bottom: 2px solid white;
-      padding: 1rem;
+    background-color: var(--blue);
+    color: white;
+    margin-bottom: 0;
+    border-bottom: 2px solid white;
+    padding: 1rem;
 
-      border-top-left-radius: 1rem;
-    }
+    border-top-left-radius: 1rem;
+  }
 
-    .header .header-logo {
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    
-    .header .header-logo h1 {
-      width: max-content;
-    }
-    
-    .header .header-logo i {
-      font-size: 2rem;
-      color: white;
-    }
-    
-    .header .header-text {
-      text-align: center;
-    }
+  .header .header-logo {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
-    .header .header-text .project-section-wrapper {
-      display: none;
-    }
+  .header .header-logo h1 {
+    width: max-content;
+  }
 
-    /* navbar ----------------------------------------------------------------*/
+  .header .header-logo i {
+    font-size: 2rem;
+    color: white;
+  }
 
-    .navbar-projects {
-      grid-area: nav;
+  .header .header-text {
+    text-align: center;
+  }
 
-      margin-bottom: 0;
-      padding: 1rem;
-      border-bottom: 2px solid white;
+  .header .header-text .project-section-wrapper {
+    display: none;
+  }
 
-      background-color: var(--blue);
+  /* navbar ----------------------------------------------------------------*/
+
+  .navbar-projects {
+    grid-area: nav;
+
+    margin-bottom: 0;
+    padding: 1rem;
+    border-bottom: 2px solid white;
+
+    background-color: var(--blue);
+
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    flex-wrap: nowrap;
+
+    overflow: auto;
+  }
+
+  .navbar-projects .project-nav-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-projects .project-nav-wrapper {
+    color: white;
+  }
+
+  .navbar-projects .project-nav-wrapper:is(:hover, :focus) {
+    color: var(--black);
+  }
+
+  .navbar-projects .project-nav-wrapper.active {
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: var(--blue);
+  }
+
+  .navbar-projects .project-nav-wrapper.active .signs-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .navbar-projects .project-nav-wrapper.active .signs-wrapper i:is(:hover, :focus) {
+    color: var(--dark-blue2);
+  }
+
+  /* main ------------------------------------------------------------------*/
+
+  .main {
+    grid-area: main;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    grid-auto-rows: 45%;
+
+    gap: 2.4%;
+
+    flex-direction: none;
+    justify-content: none;
+
+    overflow: auto;
+    padding: 0.2rem 1rem;
+    margin-bottom: 0;
+  }
+
+  .main .task-card {
+    flex-direction: column;
+  }
+
+  .task-card .task-content::after {
+    content: "";
+
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: -1rem;
+
+    height: 1px;
+    width: 100%;
+
+    background-color: var(--blue);
+    box-shadow: 0 0 2px var(--blue);
+  }
+
+  /* buttons ---------------------------------------------------------------*/
+
+  .buttons {
+    grid-area: buttons;
+
+    background-color: var(--blue);
+    border-bottom-left-radius: 1rem;
+
+    padding: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .buttons button {
+    background-color: white;
+    color: var(--blue);
+
+    width: 100%;
+  }
+
+  .buttons button:is(:hover, :focus) {
+    background-color: white;
+    box-shadow: 0 0 5px white;
+    color: var(--dark-blue2);
+  }
+
+  /* create task and project, edit task ------------------------------------*/
+
+  .create-task,
+  .create-project,
+  .edit-task,
+  .edit-project {
+
+    grid-area: main;
   
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 1rem;    
-      flex-wrap: nowrap;
-      
-      overflow: auto;
-    }
+    height: 100%;
+    width: 98%;
 
-    .navbar-projects .project-nav-wrapper {
-      display: flex;
-      align-items: center;
-    }
+    top: 0;
+    left: calc(1rem + 110%);
 
-    .navbar-projects .project-nav-wrapper {
-      color: white;
-    }
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 
-    .navbar-projects .project-nav-wrapper:is(:hover, :focus) {
-      color: var(--black);
-    }
-    
-    .navbar-projects .project-nav-wrapper.active {
-      background-color: white;
-      padding: 0.5rem;
-      border-radius: 1rem;
-      color: var(--blue);
-    }
+    transition-duration: 400ms;
+    transition-property: transform;
+  }
 
-    .navbar-projects .project-nav-wrapper.active .signs-wrapper {
-      display: flex;
-      gap: 0.5rem;
-      margin-left: auto;
-    }
-
-    .navbar-projects .project-nav-wrapper.active .signs-wrapper i:is(:hover, :focus) {
-      color: var(--dark-blue2);
-    }
-
-    /* main ------------------------------------------------------------------*/
-
-    .main {
-      grid-area: main;
-    }
-
-    .main {
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-      grid-auto-rows: 45%;
-      
-      gap: 2.4%;
-
-      flex-direction: none;
-      justify-content: none;
-
-      overflow: auto;
-      padding: 0.2rem 1rem;
-      margin-bottom: 0;
-    }
-    
-    .main .task-card {    
-      flex-direction: column;    
-    }
-
-    .task-card .task-content::after {
-      content: "";
-    
-      position: absolute;
-      right: 0;
-      left: 0;
-      top: -1rem;
-
-      height: 1px;
-      width: 100%;
-    
-      background-color: var(--blue);
-      box-shadow: 0 0 2px var(--blue);
-    }
-
-    /* buttons ---------------------------------------------------------------*/
-
-    .buttons {
-      grid-area: buttons;
-
-      background-color: var(--blue);
-      border-bottom-left-radius: 1rem;
-
-      padding: 1rem;
-    }
-
-    .buttons {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .buttons button {
-      background-color: white;
-      color: var(--blue);
-      
-      width: 100%;
-    }
-    
-    .buttons button:is(:hover, :focus) {
-      background-color: white;
-      box-shadow: 0 0 5px white;
-      color: var(--dark-blue2);
-    }
-
-    /* create task and project, edit task ------------------------------------*/
-
-    .create-task.active,
-    .create-project.active,
-    .edit-task.active,
-    .task-details-info.active,
-    .edit-project.active {
-      grid-area: main;
-      
-      top: 50%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      height: 100%;
-      width: 98%;
-
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+  .create-task.active,
+  .create-project.active,
+  .edit-task.active,
+  .task-details-info.active,
+  .edit-project.active {
+    transform: translateX(calc(-1rem - 110%));
+  }
 }

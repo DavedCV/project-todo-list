@@ -31,6 +31,7 @@ const initTodo = () => {
     "high",
     new Date(),
     "Welcome to 'Todo List', start creating task and projects, and get ready to be productive!",
+    all
   );
 
   all.addTask(defaultTask);
