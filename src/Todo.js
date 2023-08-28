@@ -158,6 +158,21 @@ const todayTasks = () => {
   return todayTasks;
 };
 
+const deleteTask = (projectName, taskName) => {
+  const project = projects.filter(
+    (project) => project.getName() === projectName,
+  )[0];
+
+  const task = project.getTask(taskName);
+
+  project.deleteTask(taskName);
+  all.deleteTask(taskName);
+  today.deleteTask(taskName);
+  if (task.getState()) completed.deleteTask(taskName);
+  else uncompleted.deleteTask(taskName);
+
+};
+
 export {
   initTodo,
   createNewProject,
@@ -170,4 +185,5 @@ export {
   editTask,
   checkTask,
   todayTasks,
+  deleteTask,
 };

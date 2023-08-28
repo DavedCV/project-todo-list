@@ -171,7 +171,10 @@ const setTasks = () => {
     taskContent.appendChild(editSign);
     const deleteSign = document.createElement("i");
     deleteSign.setAttribute("class", "fa-solid fa-trash");
-    deleteSign.addEventListener("click", () => {});
+    deleteSign.addEventListener("click", () => {
+      Todo.deleteTask(currentProject, task.getName());
+      setTasks();
+    });
     taskContent.appendChild(deleteSign);
 
     taskCard.appendChild(taskCheck);
