@@ -3,21 +3,25 @@ import Project from "./Project.js";
 import Task from "./Task.js";
 
 let projects = [];
+let today = undefined;
+let all = undefined;
+let completed = undefined;
+let uncompleted = undefined;
 
 const initTodo = () => {
-  const today = Project(
+  today = Project(
     "today",
     "project section where task with date equals to the system date are bundled",
   );
 
-  const all = Project("all", "project section where all task are bundled");
+  all = Project("all", "project section where all task are bundled");
 
-  const completed = Project(
+  completed = Project(
     "completed",
     "project section where all task completed are bundled",
   );
 
-  const uncompleted = Project(
+  uncompleted = Project(
     "uncompleted",
     "project section where all task uncompleted are bundled",
   );
@@ -43,6 +47,16 @@ const createNewProject = (name, description) =>
 
 const deleteProject = (name) => {
   const index = projects.findIndex((project) => project.getName() === name);
+
+  const project = projects[index];
+
+  for (let task of project.getTasksCopy()) {
+    all.deleteTask(task.getName());
+    if (task.getState()) completed.deleteTask(task.getName());
+    else uncompleted.deleteTask(task.getName());
+    today.deleteTask(task.getName());
+  }
+
   projects.splice(index, 1);
 };
 
@@ -78,10 +92,6 @@ const createTask = (
   const project = projects.filter(
     (project) => project.getName() === projectName,
   )[0];
-  const uncompleted = projects.filter(
-    (project) => project.getName() === "uncompleted",
-  )[0];
-  const all = projects.filter((project) => project.getName() === "all")[0];
 
   const newTask = Task(taskName, taskPriority, taskDate, taskDescription);
   project.addTask(newTask);
@@ -121,12 +131,6 @@ const checkTask = (projectName, taskName) => {
   const project = projects.filter(
     (project) => project.getName() === projectName,
   )[0];
-  const completed = projects.filter(
-    (project) => project.getName() === "completed",
-  )[0];
-  const uncompleted = projects.filter(
-    (project) => project.getName() === "uncompleted",
-  )[0];
 
   const task = project.getTask(taskName);
   const finished = task.changeState();
@@ -141,8 +145,6 @@ const checkTask = (projectName, taskName) => {
 };
 
 const todayTasks = () => {
-  const all = projects.filter((project) => project.getName() === "all")[0];
-
   const todayTasks = all
     .getTasksCopy()
     .filter(
@@ -151,7 +153,6 @@ const todayTasks = () => {
         format(new Date(), "dd/MM/yyyy"),
     );
 
-  const today = projects.filter((project) => project.getName() === "today")[0];
   today.setTasks(todayTasks);
 
   return todayTasks;

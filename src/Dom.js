@@ -33,7 +33,6 @@ const setMenuTaskOptions = () => {
     if (
       project != "uncompleted" &&
       project != "completed" &&
-      project != "all" &&
       project != "today"
     ) {
       const option = document.createElement("option");
@@ -73,7 +72,8 @@ const setNavbar = () => {
     signsWrapper.classList.add("signs-wrapper");
     const editSign = document.createElement("i");
     editSign.setAttribute("class", "fa-solid fa-pen-to-square");
-    editSign.addEventListener("click", () => {
+    editSign.addEventListener("click", (event) => {
+      event.stopPropagation();
       const editProjectMenu = document.querySelector(".edit-project");
       editProjectMenu.classList.add("active");
       setEditProjectMenuContent(editProjectMenu);
@@ -81,7 +81,12 @@ const setNavbar = () => {
     signsWrapper.appendChild(editSign);
     const deleteSign = document.createElement("i");
     deleteSign.setAttribute("class", "fa-solid fa-trash");
-    deleteSign.addEventListener("click", () => {});
+    deleteSign.addEventListener("click", (event) => {
+      event.stopPropagation();
+      Todo.deleteProject(currentProject);
+      setNavbar();
+      setTasks();
+    });
     signsWrapper.appendChild(deleteSign);
 
     projectNavWrapper.appendChild(projectName);
@@ -258,9 +263,14 @@ const setStaticButtonsListeners = () => {
     editProjectMenu.classList.add("active");
     setEditProjectMenuContent(editProjectMenu);
   });
-  buttonDeleteProjectMobile.addEventListener("click", () => {});
+  buttonDeleteProjectMobile.addEventListener("click", () => {
+    Todo.deleteProject(currentProject);
+    setNavbar();
+    setTasks();
+  });
 
   /* close menu buttons */
+
   const taskDetailsInfo = document.querySelector(".task-details-info");
   taskDetailsInfo.firstElementChild.addEventListener("click", () =>
     taskDetailsInfo.classList.remove("active"),

@@ -20,7 +20,7 @@ export default function Project(name, description) {
 
   const deleteTask = (taskName) => {
     const index = tasks.findIndex((task) => task.getName() === taskName);
-    tasks.splice(index, 1);
+    if (index != -1) tasks.splice(index, 1);
   };
 
   const setTasks = (newTasks) => tasks.splice(0, tasks.length, ...newTasks);
