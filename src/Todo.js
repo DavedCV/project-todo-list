@@ -31,7 +31,7 @@ const initTodo = () => {
     "high",
     new Date(),
     "Welcome to 'Todo List', start creating task and projects, and get ready to be productive!",
-    all
+    all,
   );
 
   all.addTask(defaultTask);
@@ -105,14 +105,45 @@ const deleteProject = (name) => {
   }
 
   projects.splice(index, 1);
+
+  if (
+    project.getName() !== "today" &&
+    project.getName() !== "all" &&
+    project.getName() !== "completed" &&
+    project.getName() !== "uncompleted"
+  ) {
+    const savedProjects = JSON.parse(localStorage.getItem("projects"));
+    const indexSavedProject = savedProjects.findIndex(
+      (project) => project.name === name,
+    );
+    savedProjects.splice(indexSavedProject, 1);
+    localStorage.setItem("projects", JSON.stringify(savedProjects));
+  }
 };
 
 const editProject = (originalName, newName, newDescription) => {
   const index = projects.findIndex(
     (project) => project.getName() === originalName,
   );
-  projects[index].setName(newName);
-  projects[index].setDescription(newDescription);
+
+  const project = projects[index];
+  project.setName(newName);
+  project.setDescription(newDescription);
+
+  if (
+    project.getName() !== "today" &&
+    project.getName() !== "all" &&
+    project.getName() !== "completed" &&
+    project.getName() !== "uncompleted"
+  ) {
+    const savedProjects = JSON.parse(localStorage.getItem("projects"));
+    const targetProject = savedProjects.filter(
+      (project) => project.name === originalName,
+    )[0];
+    targetProject.name = newName;
+    targetProject.description = newDescription;
+    localStorage.setItem("projects", JSON.stringify(savedProjects));
+  }
 };
 
 const getProjectsNames = () => projects.map((project) => project.getName());
